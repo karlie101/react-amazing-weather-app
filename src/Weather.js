@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 import "./Weather.css";
 
 export default function Weather(props) {
@@ -10,7 +11,7 @@ function handleResponse(response) {
     ready: true,
     temperature: response.data.main.temp,
     humidity: response.data.main.humidity,
-    date: "Friday 02:00",
+    date: new Date(response.data.dt * 1000),
     description: response.data.weather[0].description,
     iconUrl: "https://ssl.gstatic.com/onebox/weather/64/rain_s_cloudy.png",
     wind: response.data.wind.speed,
@@ -41,7 +42,10 @@ if (weatherData.ready) {
         </form>
         <h1>{weatherData.city}</h1>
         <ul>
-            <li>{weatherData.date}</li>
+            <li>
+              <FormattedDate date={weatherData.date} />
+            
+            </li>
             <li className="text-capitalize">{weatherData.description}</li>
         </ul>
         <div className="row mt-3">
@@ -69,16 +73,10 @@ if (weatherData.ready) {
 
  } else {
   const apiKey = "8f97146e7f3beb64688f068bff5865ae";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?
-  q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(handleResponse);
 
   return "Loading...";
  }
-
-
-
-
-    
         
 }
