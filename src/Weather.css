@@ -3,6 +3,7 @@
     color: rgb(135, 135, 135);
     padding: 16px;
     border-radius: 4px;
+    background: linear-gradient(to top, #dfe9f3 0%, white 100%);
 }
 
 .Weather h1 {
